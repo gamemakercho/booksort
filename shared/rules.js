@@ -1,10 +1,10 @@
 // Local game rules and layout.
 export const CONFIG = Object.freeze({
- GAME_VERSION:'book-sort-2.1.0',
+ GAME_VERSION:'book-sort-2.2.0',
  durationMs:30000,target:25,penaltyMs:500,bonusMs:3000,bonusCombo:10,
- queueLength:4,flightMs:145,slideMs:110,catMs:500,
+ queueLength:4,flightMs:145,slideMs:110,catMs:500,oopsMs:420,
  layout:{width:360,height:640,baseline:408,frontX:214,bookW:30,bookH:58,gap:24,
- catX:100,catScale:.40,cabinet:[0,292,93,116],boxX:[62,180,298],boxY:458,boxW:108,boxH:66}
+ catX:100,catScale:.40,cabinet:[0,292,93,116],cabinetInterior:{x:55,y:148,w:131,h:104},boxX:[62,180,298],boxY:458,boxW:108,boxH:66}
 });
 export const CATEGORIES=[
  {color:'blue',name:'일반',hex:'#75a9ed',mark:'Ⅰ'},

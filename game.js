@@ -13,6 +13,8 @@ let catReleaseMs=CONFIG.catMs*.62;
 const releasePoint=()=>{const f=assets.motion?.frames.find(f=>f.event==='release-to-queue');return f?{x:L.catX+(f.held_book_center.x-f.anchor.x)*L.catScale,y:L.baseline+(f.held_book_center.y-f.anchor.y)*L.catScale}:{x:L.catX+33,y:L.baseline-37};};
 let lastInputT=-Infinity,roundId=crypto.randomUUID();
 let lastInputAt=-Infinity,muted=false,audio=null,lastTone=-Infinity,toastUntil=0,countdownTimer=0;
+let oopsUntil=0,scenePausedAt=null,scenePausedMs=0;
+function sceneTime(now=performance.now()){return(scenePausedAt??now)-scenePausedMs;}
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function resize(){
  const css=getComputedStyle(document.body);
@@ -34,7 +36,7 @@ function startMenu(){
 }
 function clearRound(seed){
  clearTimeout(countdownTimer);g=createGame(seed);flights=[];sparkles=[];boxCounts=[0,0,0];bounces=[0,0,0];visual.clear();
- catStart=-Infinity;catBook=null;shake=0;lastInputAt=-Infinity;lastInputT=-Infinity;roundId=crypto.randomUUID();completed=false;
+ catStart=-Infinity;catBook=null;shake=0;oopsUntil=0;scenePausedAt=null;scenePausedMs=0;lastInputAt=-Infinity;lastInputT=-Infinity;roundId=crypto.randomUUID();completed=false;
  pausedTotal=0;pauseStart=0;toastUntil=0;
  document.querySelectorAll('[data-color]').forEach(b=>b.classList.remove('pressed'));
  $('#combo').textContent='';$('#score').textContent='정리 0권';$('#time-bar').style.width='100%';
@@ -71,7 +73,7 @@ function tone(correct){
  o.connect(v).connect(audio.destination);o.start();o.stop(t+.11);
 }
 function unlockSound(){try{audio??=new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume().catch(()=>{});}catch{}}
-function notify(text,ms=1400){$('#combo').textContent=text;toastUntil=performance.now()+ms;}
+function notify(text,ms=1400){$('#combo').textContent=text;toastUntil=sceneTime()+ms;}
 function position(book,index,now){
  const target=L.frontX-index*L.gap;let v=visual.get(book.id);
  if(!v){v={fromX:target,fromY:L.baseline-L.bookH/2,toX:target,toY:L.baseline-L.bookH/2,at:now};visual.set(book.id,v);}
@@ -80,7 +82,7 @@ function position(book,index,now){
 }
 function input(color){
  if(phase!=='playing'&&phase!=='tutorial')return;
- const now=performance.now(),t=phase==='tutorial'?0:active(now);
+ const wallNow=performance.now(),now=sceneTime(wallNow),t=phase==='tutorial'?0:active(wallNow);
  if(phase==='playing'&&(g.terminalAt!==null||t>=g.deadline)){endRound();return;}
  // Prevent synthesized duplicate pointer events; do not lock for animations.
  if(now-lastInputAt<20||(phase==='playing'&&t-lastInputT<20))return;lastInputAt=now;
@@ -104,11 +106,11 @@ function input(color){
   if(phase==='tutorial'){
    tutorialCount++;$('#score').textContent='연습 '+tutorialCount+'권';
    if(tutorialCount===3){
-    phase='tutorial-done';showPanel(heading('연습 완료!','이제 도서관을 부탁해요')+'<p>고양이가 책을 꺼내는 동안에도<br>다음 책을 바로 분류할 수 있어요.</p><button id="play" class="primary">30초 도전 시작</button>');$('#play').onclick=prepareRound;
+    oopsUntil=0;phase='tutorial-done';showPanel(heading('연습 완료!','이제 도서관을 부탁해요')+'<p>고양이가 책을 꺼내는 동안에도<br>다음 책을 바로 분류할 수 있어요.</p><button id="play" class="primary">30초 도전 시작</button>');$('#play').onclick=prepareRound;
    }else $('#status').textContent=tutorialCount===1?'다음은 노랑 책 → 어린이 버튼이에요.':'마지막은 빨강 책 → 유아 버튼이에요.';
   }
  }else{
-  shake=now;tone(false);notify(phase==='tutorial'?'같은 색을 다시 골라요.':'앗! −0.5초',850);
+  oopsUntil=now+CONFIG.oopsMs;shake=now;tone(false);notify(phase==='tutorial'?'같은 색을 다시 골라요.':'앗! −0.5초',850);
   if(phase==='tutorial'){g.deadline=CONFIG.durationMs;g.mistakes=0;}
  }
  if(phase==='playing'){
@@ -118,24 +120,23 @@ function input(color){
 }
 function pauseGame(){
  if(phase!=='playing'&&phase!=='tutorial')return;
- if(phase==='tutorial'){phase='tutorial-paused';}
- else{
-  const now=performance.now();if(active(now)>=g.deadline){endRound();return;}
-  pauseStart=now;phase='paused';
- }
+ const now=performance.now();
+ if(phase==='playing'&&active(now)>=g.deadline){endRound();return;}
+ scenePausedAt=now;
+ if(phase==='tutorial')phase='tutorial-paused';
+ else{pauseStart=now;phase='paused';}
  showPanel(heading('잠깐 쉬어가요','책들은 기다리고 있어요')+'<p>시간은 멈춰 있어요.<br>준비가 되면 이어서 정리해 주세요.</p><button id="resume" class="primary">이어서 하기</button><button id="restart-pause" class="secondary">새로 시작</button>');
- $('#resume').onclick=resumeGame;$('#restart-pause').onclick=prepareRound;
+ $('#resume').onclick=resumeGame;$('#restart-pause').onclick=phase==='tutorial-paused'?beginTutorial:prepareRound;
 }
 function resumeGame(){
- if(document.hidden)return;
+ if(document.hidden||(phase!=='paused'&&phase!=='tutorial-paused'))return;
+ const now=performance.now();scenePausedMs+=now-scenePausedAt;scenePausedAt=null;
  if(phase==='tutorial-paused'){phase='tutorial';hidePanel();return;}
- if(phase!=='paused')return;
- const now=performance.now();pausedTotal+=now-pauseStart;
- phase='playing';hidePanel();
+ pausedTotal+=now-pauseStart;phase='playing';hidePanel();
 }
 function endRound(){
  if(phase!=='playing')return;
- const r=resultOf(g);phase='result';
+ const r=resultOf(g);oopsUntil=0;phase='result';
  const previousBest=best;best=Math.max(best,r.score);
  const stored=storage.set('best',best);
  $('#time').innerHTML='0<span>초</span>';$('#time-bar').style.width='0%';
@@ -158,14 +159,37 @@ function showResult(r,newBest,stored){
  $('#again').onclick=prepareRound;
  $('#continue').onclick=()=>{hidePanel();$('#status').textContent='정리 완료! 다음 단서로 이동해 주세요.';};
 }
+function buildCabinetBooks(){
+ const image=assets['return-cabinet'],canvas=document.createElement('canvas');
+ canvas.width=image.naturalWidth;canvas.height=image.naturalHeight;
+ const c=canvas.getContext('2d'),hole=L.cabinetInterior;
+ c.save();c.beginPath();c.rect(hole.x,hole.y,hole.w,hole.h);c.clip();
+ const pile=[
+  {color:0,x:84,y:239,scale:.25,angle:Math.PI/2},
+  {color:1,x:84,y:217,scale:.25,angle:Math.PI/2},
+  {color:2,x:84,y:195,scale:.25,angle:Math.PI/2},
+  {color:0,x:84,y:173,scale:.25,angle:Math.PI/2},
+  {color:2,x:125,y:229,scale:.23,angle:0},
+  {color:1,x:149,y:229,scale:.23,angle:0},
+  {color:0,x:173,y:229,scale:.23,angle:0}
+ ];
+ for(const item of pile){
+  const bookImage=assets['book-'+CATEGORIES[item.color].color],w=bookImage.naturalWidth*item.scale,h=bookImage.naturalHeight*item.scale;
+  c.save();c.translate(item.x,item.y);c.rotate(item.angle);c.drawImage(bookImage,-w/2,-h/2,w,h);c.restore();
+ }
+ c.globalCompositeOperation='source-atop';c.fillStyle='rgba(38,26,18,.16)';c.fillRect(hole.x,hole.y,hole.w,hole.h);c.restore();
+ assets.cabinetBooks=canvas;
+}
 function drawImage(name,x,y,w,h){if(assets[name])ctx.drawImage(assets[name],x,y,w,h);}
 function book(color,x,y,w=L.bookW,h=L.bookH){
  drawImage('book-'+CATEGORIES[color].color,x-w/2,y-h/2,w,h);
  ctx.fillStyle='#503725';ctx.font='bold '+Math.max(6,w*.24)+'px system-ui';ctx.textAlign='center';ctx.fillText(CATEGORIES[color].mark,x-w*.12,y-h*.07);
 }
-function draw(now){
+function draw(wallNow){
+ const now=sceneTime(wallNow);
  ctx.setTransform(2,0,0,2,0,0);ctx.clearRect(0,0,360,640);drawImage('library-background',0,0,360,640);
  const [cx,cy,cw,ch]=L.cabinet;drawImage('return-cabinet',cx,cy,cw,ch);
+ if(assets.cabinetBooks)ctx.drawImage(assets.cabinetBooks,cx,cy,cw,ch);
  ctx.fillStyle='#563d2c';ctx.font='bold 10px system-ui';ctx.textAlign='center';ctx.fillText('반납함',cx+cw*.47,cy+ch*.255);
  let frame=assets.motion?.frames[assets.motion.idle_frame],age=now-catStart;
  if(age>=0&&age<CONFIG.catMs){
@@ -173,14 +197,15 @@ function draw(now){
  }
  if(frame){
   const {rect,anchor}=frame,s=L.catScale,x=L.catX-anchor.x*s,y=L.baseline-anchor.y*s;
-  if(assets['cat-supply-sheet'])ctx.drawImage(assets['cat-supply-sheet'],rect.x,rect.y,rect.w,rect.h,x,y,rect.w*s,rect.h*s);
+  const sheet=now<oopsUntil&&assets['cat-oops-sheet']?assets['cat-oops-sheet']:assets['cat-supply-sheet'];
+  if(sheet)ctx.drawImage(sheet,rect.x,rect.y,rect.w,rect.h,x,y,rect.w*s,rect.h*s);
   if(catBook&&!catBook.released&&now<catRelease&&frame.held_book_center){
    const p=frame.held_book_center,z=frame.held_book_size;
    book(catBook.color,x+p.x*s,y+p.y*s,z.w*s,z.h*s);
    // Reuse the actual front-paw pixels above the book instead of inventing a hand.
    const px=p.x+z.w*.25,py=p.y+z.h*.12;
    ctx.save();ctx.beginPath();ctx.ellipse(x+px*s,y+py*s,8*s,12*s,0,0,Math.PI*2);ctx.clip();
-   ctx.drawImage(assets['cat-supply-sheet'],rect.x,rect.y,rect.w,rect.h,x,y,rect.w*s,rect.h*s);ctx.restore();
+   ctx.drawImage(sheet,rect.x,rect.y,rect.w,rect.h,x,y,rect.w*s,rect.h*s);ctx.restore();
   }
  }
  for(let i=g.queue.length-1;i>=0;i--){
@@ -207,7 +232,7 @@ function draw(now){
  sparkles=sparkles.filter(s=>now-s.at<460);
  for(const s of sparkles){const p=(now-s.at)/460;ctx.save();ctx.globalAlpha=1-p;ctx.fillStyle='#92652e';ctx.font='bold 15px system-ui';ctx.fillText('+1 ✦',s.x,L.boxY-10-p*18);ctx.restore();}
  if(phase==='playing'){
-  const t=active(now);if(t>=g.deadline||g.terminalAt!==null)endRound();
+  const t=active(wallNow);if(t>=g.deadline||g.terminalAt!==null)endRound();
   else{$('#time').innerHTML=Math.ceil((g.deadline-t)/1000)+'<span>초</span>';$('#time-bar').style.width=Math.min(100,(g.deadline-t)/CONFIG.durationMs*100)+'%';}
  }
  if(toastUntil&&now>toastUntil){$('#combo').textContent='';toastUntil=0;}
@@ -218,6 +243,18 @@ async function loadAssets(){
  const load=(name,ext)=>new Promise((resolve,reject)=>{const i=new Image();i.onload=()=>resolve(i);i.onerror=reject;i.src=new URL('./assets/'+name+'.'+ext,import.meta.url).href;});
  await Promise.all(names.map(async name=>{try{assets[name]=await load(name,'webp');}catch{assets[name]=await load(name,'png');}}));
  assets.motion=await(await fetch(new URL('./assets/cat-supply.json',import.meta.url))).json();
+ buildCabinetBooks();
+ // This skin is optional; missing images or incompatible metadata keep the normal cat.
+ let timeout;
+ const optional=async()=>{
+  const meta=await(await fetch(new URL('./assets/cat-oops.json',import.meta.url))).json();
+  let sheet;try{sheet=await load('cat-oops-sheet','webp');}catch{sheet=await load('cat-oops-sheet','png');}
+  const normal=assets['cat-supply-sheet'];
+  if(sheet.naturalWidth!==normal.naturalWidth||sheet.naturalHeight!==normal.naturalHeight||meta.role!=='expression-skin'||meta.reaction_duration_ms!==CONFIG.oopsMs||meta.frames?.length!==assets.motion.frames.length)throw Error('invalid_expression_skin');
+  for(const f of assets.motion.frames){const other=meta.frames[f.index];if(JSON.stringify(other?.rect)!==JSON.stringify(f.rect)||JSON.stringify(other?.anchor)!==JSON.stringify(f.anchor))throw Error('unaligned_expression_skin');}
+  return sheet;
+ };
+ try{const skin=await Promise.race([optional(),new Promise(resolve=>{timeout=setTimeout(()=>resolve(null),2500);})]);if(skin)assets['cat-oops-sheet']=skin;}catch{}finally{clearTimeout(timeout);}
  let beforeRelease=0;for(const index of assets.motion.sequence){const f=assets.motion.frames[index];if(f.event==='release-to-queue')break;beforeRelease+=f.duration_ms;}catReleaseMs=beforeRelease/assets.motion.duration_ms*CONFIG.catMs;
  document.documentElement.style.setProperty('--cat-idle','url("'+assets['cat-supply-sheet'].src+'")');
 }
@@ -240,6 +277,6 @@ try{await loadAssets();startMenu();requestAnimationFrame(draw);}
 catch{showPanel(heading('이미지를 불러오지 못했어요','다시 열어 주세요')+'<p>인터넷 연결과 assets 폴더를 확인해 주세요.</p><button class="primary" id="reload">다시 불러오기</button>');$('#reload').onclick=()=>location.reload();}
 if(new URLSearchParams(location.search).get('dev')==='1'){
  // Local QA inspection only; disabled in normal play.
- window.bookSortDebug={get state(){return{phase,g,flights,catBook,catStart,completed,boxCounts,roundId,best};},input,pauseGame,resumeGame};
+ window.bookSortDebug={get state(){return{phase,g,flights,catBook,catStart,catRelease,completed,boxCounts,roundId,best,oopsUntil,sceneNow:sceneTime(),hasOopsSheet:!!assets['cat-oops-sheet'],cabinetCache:assets.cabinetBooks};},input,pauseGame,resumeGame};
 }
 

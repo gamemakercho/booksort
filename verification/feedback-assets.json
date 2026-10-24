@@ -1,0 +1,96 @@
+{
+  "size": [
+    768,
+    512
+  ],
+  "frames": [
+    {
+      "index": 0,
+      "anchor": [
+        128,
+        224
+      ],
+      "visibleDifferenceBounds": [
+        65,
+        83,
+        116,
+        114
+      ]
+    },
+    {
+      "index": 1,
+      "anchor": [
+        128,
+        224
+      ],
+      "visibleDifferenceBounds": [
+        53,
+        85,
+        104,
+        117
+      ]
+    },
+    {
+      "index": 2,
+      "anchor": [
+        128,
+        224
+      ],
+      "visibleDifferenceBounds": [
+        89,
+        90,
+        142,
+        118
+      ]
+    },
+    {
+      "index": 3,
+      "anchor": [
+        128,
+        224
+      ],
+      "visibleDifferenceBounds": [
+        150,
+        84,
+        197,
+        114
+      ]
+    },
+    {
+      "index": 4,
+      "anchor": [
+        128,
+        224
+      ],
+      "visibleDifferenceBounds": [
+        150,
+        84,
+        197,
+        114
+      ]
+    },
+    {
+      "index": 5,
+      "anchor": [
+        128,
+        224
+      ],
+      "visibleDifferenceBounds": [
+        142,
+        83,
+        191,
+        113
+      ]
+    }
+  ],
+  "formats": {
+    "cat-oops-sheet.png": {
+      "alphaDifferences": 0,
+      "visibleDifferentPixels": 4163
+    },
+    "cat-oops-sheet.webp": {
+      "alphaDifferences": 0,
+      "visibleDifferentPixels": 4163
+    }
+  }
+}

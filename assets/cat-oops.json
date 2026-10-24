@@ -1,0 +1,165 @@
+{
+  "image": "cat-oops-sheet.png",
+  "preferred_image": "cat-oops-sheet.webp",
+  "frame_canvas": {
+    "w": 256,
+    "h": 256
+  },
+  "duration_ms": 500,
+  "loop": false,
+  "sequence": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "idle_frame": 5,
+  "frames": [
+    {
+      "index": 0,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 224
+      },
+      "duration_ms": 80,
+      "held_book_center": {
+        "x": 44.5,
+        "y": 138.5
+      },
+      "held_book_size": {
+        "w": 62,
+        "h": 116
+      },
+      "book_layer": "above_cat",
+      "event": null
+    },
+    {
+      "index": 1,
+      "rect": {
+        "x": 256,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 224
+      },
+      "duration_ms": 90,
+      "held_book_center": {
+        "x": 33,
+        "y": 139
+      },
+      "held_book_size": {
+        "w": 62,
+        "h": 116
+      },
+      "book_layer": "above_cat",
+      "event": null
+    },
+    {
+      "index": 2,
+      "rect": {
+        "x": 512,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 224
+      },
+      "duration_ms": 70,
+      "held_book_center": {
+        "x": 119,
+        "y": 157.5
+      },
+      "held_book_size": {
+        "w": 62,
+        "h": 116
+      },
+      "book_layer": "above_cat",
+      "event": null
+    },
+    {
+      "index": 3,
+      "rect": {
+        "x": 0,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 224
+      },
+      "duration_ms": 70,
+      "held_book_center": {
+        "x": 169.5,
+        "y": 144.5
+      },
+      "held_book_size": {
+        "w": 62,
+        "h": 116
+      },
+      "book_layer": "above_cat",
+      "event": null
+    },
+    {
+      "index": 4,
+      "rect": {
+        "x": 256,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 224
+      },
+      "duration_ms": 100,
+      "held_book_center": {
+        "x": 211,
+        "y": 132
+      },
+      "held_book_size": {
+        "w": 62,
+        "h": 116
+      },
+      "book_layer": "above_cat",
+      "event": "release-to-queue"
+    },
+    {
+      "index": 5,
+      "rect": {
+        "x": 512,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 224
+      },
+      "duration_ms": 90,
+      "held_book_center": null,
+      "held_book_size": {
+        "w": 62,
+        "h": 116
+      },
+      "book_layer": "above_cat",
+      "event": null
+    }
+  ],
+  "notes_ko": "기존 cat-supply의 같은 프레임 번호에 대응하는 표정 교체용 시트입니다. 별도 애니메이션을 시작하지 말고 원래 공급 동작의 프레임 번호와 시간을 그대로 사용하세요. 몸·손·발·꼬리·무늬·알파는 기존 시트와 동일하며 얼굴의 눈과 입 부분만 다릅니다.",
+  "role": "expression-skin",
+  "reaction_duration_ms": 420
+}

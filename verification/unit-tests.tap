@@ -2,31 +2,31 @@ TAP version 13
 # Subtest: seed determinism, balanced bags, no three identical colors, unique IDs
 ok 1 - seed determinism, balanced bags, no three identical colors, unique IDs
   ---
-  duration_ms: 32.3038
+  duration_ms: 33.0045
   type: 'test'
   ...
 # Subtest: atomic correct input removes exactly one and supplies exactly one under rapid input
 ok 2 - atomic correct input removes exactly one and supplies exactly one under rapid input
   ---
-  duration_ms: 0.9156
+  duration_ms: 0.9373
   type: 'test'
   ...
 # Subtest: wrong input preserves queue, penalty can end a run, boundary time wins
 ok 3 - wrong input preserves queue, penalty can end a run, boundary time wins
   ---
-  duration_ms: 0.1692
+  duration_ms: 0.1593
   type: 'test'
   ...
 # Subtest: 10 combo bonus is awarded once even after mistakes
 ok 4 - 10 combo bonus is awarded once even after mistakes
   ---
-  duration_ms: 0.1128
+  duration_ms: 0.28
   type: 'test'
   ...
 # Subtest: target is checked at the result; reaching it does not end play
 ok 5 - target is checked at the result; reaching it does not end play
   ---
-  duration_ms: 0.1491
+  duration_ms: 0.6846
   type: 'test'
   ...
 1..5
@@ -37,4 +37,4 @@ ok 5 - target is checked at the result; reaching it does not end play
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 117.2963
+# duration_ms 122.2187

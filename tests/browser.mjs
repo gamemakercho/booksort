@@ -84,7 +84,7 @@ try{
  await p.screenshot({path:path.join(out,'360-result.png')});onlyStatic(s.requests);
  await p.locator('#continue').click();assert.equal(await p.evaluate(()=>completions),1);
  checks.push('30-book rapid play, one bonus, result stats and local best, one completion event, no external API requests');
- await p.reload();await p.waitForFunction(()=>bookSortDebug?.state.phase==='menu');
+ await p.reload();await p.waitForFunction(()=>window.bookSortDebug?.state.phase==='menu');
  assert.equal(await p.locator('#menu-best').textContent(),'내 기기 최고 30권');
  await tutorial(p);await correct(p,5);await p.clock.fastForward(34000);
  assert.equal(await p.locator('#best-score').textContent(),'30권');assert(!/새 최고/.test(await p.locator('#record-message').textContent()));
@@ -108,10 +108,9 @@ try{
  const blocked=await session({storageBlocked:true});await tutorial(blocked.page);await correct(blocked.page,4);await blocked.page.clock.fastForward(34000);
  assert.equal(await blocked.page.locator('#best-score').textContent(),'4권');assert.match(await blocked.page.locator('#record-note').textContent(),/今回|이번 창/);
  await blocked.context.close();checks.push('blocked localStorage keeps an in-memory best and does not block results or replay');
- const fallback=await session({png:true});assert.equal(fallback.requests.filter(r=>r.url.endsWith('.png')).length,9);await fallback.context.close();
+ const fallback=await session({png:true});assert.equal(fallback.requests.filter(r=>r.url.endsWith('.png')).length,10);await fallback.context.close();
  checks.push('WebP failure loads PNG alternatives; assets remain under the repository path');
  assert.deepEqual(errors,[]);
- await fs.writeFile(path.join(out,'browser-results.json'),JSON.stringify({version:'book-sort-2.1.0',browser:'Chromium 151 / Playwright 1.62.1',checks,errors,method:'Real Chromium rendering and input, static local source served by Playwright request interception at https://book-sort.test/repo/.'},null,2));
+ await fs.writeFile(path.join(out,'browser-results.json'),JSON.stringify({version:'book-sort-2.2.0',browser:'Chromium 151 / Playwright 1.62.1',checks,errors,method:'Real Chromium rendering and input, static local source served by Playwright request interception at https://book-sort.test/repo/.'},null,2));
  console.log(JSON.stringify({passed:checks.length,checks,errors},null,2));
 }finally{await browser.close();}
-

@@ -1,5 +1,5 @@
 {
-  "version": "book-sort-2.1.0",
+  "version": "book-sort-2.2.0",
   "browser": "Chromium 151 / Playwright 1.62.1",
   "checks": [
     "360×640: tutorial separate from main score, accessible buttons inside viewport, no leaderboard or nickname form",

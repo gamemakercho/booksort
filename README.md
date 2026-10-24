@@ -2,6 +2,13 @@
 
 게임이 끝나면 이번 기록과 이 브라우저의 최고 기록을 보여줍니다. GitHub Pages에 올려 사용할 수 있으며, 추가 서비스 가입이나 키 설정이 필요 없습니다.
 
+## 이번 수정 (2.2.0)
+
+- 오답을 누르면 420ms 동안 고양이의 표정만 같은 프레임으로 교체합니다. 공급 동작과 책 방출 시점은 유지하며, 일시정지 동안에는 표정 시간도 멈춥니다.
+- 반납함 내부에는 기존 책 에셋 7권을 한 번 합성해 캐시합니다. 실제 분류 큐나 점수에는 연결하지 않습니다.
+- 하단 버튼의 보이는 문구는 모두 “분류”이며 상자 이름과 숫자 키 조작은 유지합니다.
+- 추가한 에셋은 cat-oops-sheet.webp, 같은 PNG 대체본, cat-oops.json입니다. 단독 대기 이미지는 추가하지 않았습니다.
+
 ## 게임과 기록
 
 - 30초 동안 같은 색 책을 일반·어린이·유아 상자로 분류합니다.
@@ -49,7 +56,7 @@ node scripts/serve.mjs
 | verification/ | 현재 버전의 스크린샷과 검사 결과 |
 | docs/VERIFICATION.md | 실제 확인 내용 |
 
-순위표 화면·별명 등록·참가자 ID·외부 API 호출·서버 코드·DB SQL·연결 설정은 이 버전에서 제거했습니다. 초기 화면의 코드·WebP 에셋 합계는 **174,821바이트(약 175KB)**입니다. WebP가 실패할 때만 PNG를 내려받고, 효과음은 Web Audio로 합성합니다.
+순위표 화면·별명 등록·참가자 ID·외부 API 호출·서버 코드·DB SQL·연결 설정은 이 버전에서 제거했습니다. 초기 화면의 코드·WebP 에셋 합계는 **343,868바이트(약 344KB)**입니다. WebP가 실패할 때만 PNG를 내려받고, 효과음은 Web Audio로 합성합니다.
 
 ## 방탈출 다음 단계 연결
 
@@ -77,8 +84,9 @@ npm run check
 npm install
 npx playwright install chromium --only-shell
 npm run test:browser
+npm run test:feedback
 ~~~
 
-확인 환경: Node 24.22.1, Playwright 1.62.1, Chromium 151. 현재 버전에서 규칙 검사 5개와 브라우저 시나리오 9개를 통과했습니다. [자세한 검증 결과](docs/VERIFICATION.md)를 참고하세요.
+확인 환경: Node 24.22.1, Playwright 1.62.1, Chromium 151. 현재 버전에서 규칙 검사 5개와 브라우저 시나리오 16개를 통과했습니다. [자세한 검증 결과](docs/VERIFICATION.md)를 참고하세요.
 
 

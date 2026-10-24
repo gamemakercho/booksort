@@ -1,0 +1,15 @@
+{
+  "version": "book-sort-2.2.0",
+  "browser": "Chromium 151 / Playwright 1.62.1",
+  "checks": [
+    "tutorial wrong answer immediately selects the same-frame expression skin; 420ms expires on the first following render; menu input ignored",
+    "repeated wrong inputs refresh one deadline; pause freezes expression and supply time; paused input ignored; tutorial restart clears feedback",
+    "wrong during supply preserves animation frame/anchor/release and queue; body and foreground paw use the same skin; correct rapid input remains immediate and tutorial completion clears feedback",
+    "cached seven-book pile is clipped entirely inside the actual cabinet hole, contains all three colors, and remains identical through restart and rapid sorting",
+    "main wrong penalty/combo rules preserved; 30 rapid correct inputs replace once; buttons display only centered 분류 with unchanged hit boxes and accessible labels; restart and result clear feedback",
+    "optional skin WebP failure falls back to PNG; both-image failure or incompatible frame metadata falls back to the normal cat without blocking play",
+    "430×932 preserves the portrait ratio and same cabinet/cat/button layout"
+  ],
+  "errors": [],
+  "method": "Real mobile-sized Chromium, local repository files served by Playwright request interception; canvas draw calls and cached alpha pixels inspected."
+}

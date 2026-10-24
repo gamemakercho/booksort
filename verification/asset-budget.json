@@ -1,27 +1,31 @@
 {
-  "version": "book-sort-2.1.0",
-  "initialUncompressedBytes": 174821,
-  "pngFallbackUncompressedBytes": 1444483,
+  "version": "book-sort-2.2.0",
+  "initialUncompressedBytes": 343868,
+  "pngFallbackUncompressedBytes": 1725364,
   "files": [
     {
       "path": "index.html",
-      "bytes": 2398
+      "bytes": 2242
     },
     {
       "path": "style.css",
-      "bytes": 6432
+      "bytes": 6345
     },
     {
       "path": "game.js",
-      "bytes": 17704
+      "bytes": 20554
     },
     {
       "path": "shared/rules.js",
-      "bytes": 2162
+      "bytes": 2214
     },
     {
       "path": "assets/cat-supply.json",
       "bytes": 3069
+    },
+    {
+      "path": "assets/cat-oops.json",
+      "bytes": 3106
     },
     {
       "path": "assets/library-background.webp",
@@ -34,6 +38,10 @@
     {
       "path": "assets/cat-supply-sheet.webp",
       "bytes": 73968
+    },
+    {
+      "path": "assets/cat-oops-sheet.webp",
+      "bytes": 163282
     },
     {
       "path": "assets/book-blue.webp",
