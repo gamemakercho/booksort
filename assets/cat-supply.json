@@ -1,0 +1,163 @@
+{
+  "image": "cat-supply-sheet.png",
+  "preferred_image": "cat-supply-sheet.webp",
+  "frame_canvas": {
+    "w": 256,
+    "h": 256
+  },
+  "duration_ms": 500,
+  "loop": false,
+  "sequence": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "idle_frame": 5,
+  "frames": [
+    {
+      "index": 0,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 224
+      },
+      "duration_ms": 80,
+      "held_book_center": {
+        "x": 44.5,
+        "y": 138.5
+      },
+      "held_book_size": {
+        "w": 62,
+        "h": 116
+      },
+      "book_layer": "above_cat",
+      "event": null
+    },
+    {
+      "index": 1,
+      "rect": {
+        "x": 256,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 224
+      },
+      "duration_ms": 90,
+      "held_book_center": {
+        "x": 33,
+        "y": 139
+      },
+      "held_book_size": {
+        "w": 62,
+        "h": 116
+      },
+      "book_layer": "above_cat",
+      "event": null
+    },
+    {
+      "index": 2,
+      "rect": {
+        "x": 512,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 224
+      },
+      "duration_ms": 70,
+      "held_book_center": {
+        "x": 119,
+        "y": 157.5
+      },
+      "held_book_size": {
+        "w": 62,
+        "h": 116
+      },
+      "book_layer": "above_cat",
+      "event": null
+    },
+    {
+      "index": 3,
+      "rect": {
+        "x": 0,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 224
+      },
+      "duration_ms": 70,
+      "held_book_center": {
+        "x": 169.5,
+        "y": 144.5
+      },
+      "held_book_size": {
+        "w": 62,
+        "h": 116
+      },
+      "book_layer": "above_cat",
+      "event": null
+    },
+    {
+      "index": 4,
+      "rect": {
+        "x": 256,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 224
+      },
+      "duration_ms": 100,
+      "held_book_center": {
+        "x": 211,
+        "y": 132
+      },
+      "held_book_size": {
+        "w": 62,
+        "h": 116
+      },
+      "book_layer": "above_cat",
+      "event": "release-to-queue"
+    },
+    {
+      "index": 5,
+      "rect": {
+        "x": 512,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 224
+      },
+      "duration_ms": 90,
+      "held_book_center": null,
+      "held_book_size": {
+        "w": 62,
+        "h": 116
+      },
+      "book_layer": "above_cat",
+      "event": null
+    }
+  ],
+  "notes_ko": "책은 시트에 포함되지 않습니다. 실제 색상 책을 held_book_center에 별도 합성합니다. 발 기준점을 맞춘 정렬 시트입니다. release-to-queue는 연출 이벤트이며 게임 큐 생성/점수 로직을 다시 실행하지 않습니다. 손 위치 좌표는 합성 시작값으로, 게임 배율에서 시각 검수하세요."
+}

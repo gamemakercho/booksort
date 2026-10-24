@@ -1,0 +1,17 @@
+{
+  "version": "book-sort-2.1.0",
+  "browser": "Chromium 151 / Playwright 1.62.1",
+  "checks": [
+    "360×640: tutorial separate from main score, accessible buttons inside viewport, no leaderboard or nickname form",
+    "wrong answer preserves queue; correct answer replaces once; compatibility clicks and key repeat do not double count",
+    "long pauses and visibility changes preserve active time and score with explicit resume",
+    "30-book rapid play, one bonus, result stats and local best, one completion event, no external API requests",
+    "best survives reload, lower scores retain it, higher scores update it; restart resets state and callback fires once",
+    "430×932 preserves aspect ratio and existing device best",
+    "after initial assets load, offline play finishes and saves local best without further requests",
+    "blocked localStorage keeps an in-memory best and does not block results or replay",
+    "WebP failure loads PNG alternatives; assets remain under the repository path"
+  ],
+  "errors": [],
+  "method": "Real Chromium rendering and input, static local source served by Playwright request interception at https://book-sort.test/repo/."
+}

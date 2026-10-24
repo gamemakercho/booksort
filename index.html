@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fcf3df"><meta name="description" content="사서가 된 고양이와 함께하는 도서관 책 분류 게임. 같은 색 상자로 책을 정리해요.">
+<title>반납 도서 분류하기 · 고양이 사서의 부탁</title><link rel="icon" href="data:,"><link rel="stylesheet" href="./style.css"></head><body>
+<main id="shell" aria-label="반납 도서 분류하기"><div id="stage">
+<canvas id="scene" width="720" height="1280" aria-label="고양이는 반납함에서 책을 꺼내요. 오른쪽 금빛 책을 분류하세요."></canvas>
+<header class="hud"><div class="time-card"><span class="clock" aria-hidden="true">◷</span><div><small id="time-label">남은 시간</small><strong id="time">30<span>초</span></strong><div class="time-track"><i id="time-bar"></i></div></div></div><div class="score-card"><small>정리한 책</small><strong id="score">정리 0권</strong></div></header>
+<div class="title-sign"><span>고양이 사서의 부탁</span><h1>반납 도서 분류하기</h1></div>
+<div class="tools"><span id="mode">내 기록 도전</span><button id="sound" aria-label="소리 켜기" aria-pressed="true">소리 꺼짐</button><button id="pause" aria-label="게임 일시정지">Ⅱ</button></div>
+<p id="status" role="status">사서님과 함께 책을 정리해요.</p><div id="combo" aria-hidden="true"></div><div id="focus-label" aria-hidden="true">이 책! <span>▼</span></div>
+<div class="sort-buttons" aria-label="책 분류"><button data-color="0" class="blue" aria-label="일반 파랑 분류, 키보드 1"><small>Ⅰ 일반</small>분류 <kbd>1</kbd></button><button data-color="1" class="yellow" aria-label="어린이 노랑 분류, 키보드 2"><small>Ⅱ 어린이</small>분류 <kbd>2</kbd></button><button data-color="2" class="red" aria-label="유아 빨강 분류, 키보드 3"><small>Ⅲ 유아</small>분류 <kbd>3</kbd></button></div>
+<p class="bottom-hint">같은 색 버튼을 눌러요!</p><div id="overlay" class="overlay"><section id="panel" class="panel" aria-labelledby="panel-title"></section></div>
+</div></main><p class="outside-note">고양이는 책을 꺼내고, 나는 책을 정리해요.</p><script type="module" src="./game.js"></script></body></html>

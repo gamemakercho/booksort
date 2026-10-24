@@ -1,0 +1,203 @@
+{
+  "version": 2,
+  "view": "side",
+  "style": "white-apricot-cat / round dark-brown outlines",
+  "reference": "../references/side-view-concept.png",
+  "background": {
+    "png": "library-background.png",
+    "webp": "library-background.webp",
+    "width": 720,
+    "height": 1280
+  },
+  "cat_animation": "cat-supply.json",
+  "sprites": {
+    "book-blue": {
+      "png": "book-blue.png",
+      "webp": "book-blue.webp",
+      "width": 112,
+      "height": 208,
+      "anchor": {
+        "x": 56,
+        "y": 208
+      }
+    },
+    "book-yellow": {
+      "png": "book-yellow.png",
+      "webp": "book-yellow.webp",
+      "width": 112,
+      "height": 208,
+      "anchor": {
+        "x": 56,
+        "y": 208
+      }
+    },
+    "book-red": {
+      "png": "book-red.png",
+      "webp": "book-red.webp",
+      "width": 112,
+      "height": 208,
+      "anchor": {
+        "x": 56,
+        "y": 208
+      }
+    },
+    "box-blue": {
+      "png": "box-blue.png",
+      "webp": "box-blue.webp",
+      "width": 320,
+      "height": 196,
+      "anchor": {
+        "x": 160,
+        "y": 196
+      },
+      "label_rect": {
+        "x": 52,
+        "y": 104,
+        "w": 216,
+        "h": 54
+      },
+      "interior_rect": {
+        "x": 28,
+        "y": 20,
+        "w": 264,
+        "h": 42
+      }
+    },
+    "box-yellow": {
+      "png": "box-yellow.png",
+      "webp": "box-yellow.webp",
+      "width": 320,
+      "height": 196,
+      "anchor": {
+        "x": 160,
+        "y": 196
+      },
+      "label_rect": {
+        "x": 52,
+        "y": 104,
+        "w": 216,
+        "h": 54
+      },
+      "interior_rect": {
+        "x": 28,
+        "y": 20,
+        "w": 264,
+        "h": 42
+      }
+    },
+    "box-red": {
+      "png": "box-red.png",
+      "webp": "box-red.webp",
+      "width": 320,
+      "height": 196,
+      "anchor": {
+        "x": 160,
+        "y": 196
+      },
+      "label_rect": {
+        "x": 52,
+        "y": 104,
+        "w": 216,
+        "h": 54
+      },
+      "interior_rect": {
+        "x": 28,
+        "y": 20,
+        "w": 264,
+        "h": 42
+      }
+    },
+    "return-cabinet": {
+      "png": "return-cabinet.png",
+      "webp": "return-cabinet.webp",
+      "width": 256,
+      "height": 318,
+      "label_rect": {
+        "x": 31,
+        "y": 54,
+        "w": 178,
+        "h": 50
+      },
+      "opening_rect": {
+        "x": 41,
+        "y": 145,
+        "w": 158,
+        "h": 126
+      }
+    }
+  },
+  "layout": {
+    "canvas": {
+      "w": 360,
+      "h": 640
+    },
+    "baseline_y": 420,
+    "cabinet": {
+      "x": 0,
+      "y": 318,
+      "w": 82,
+      "h": 102
+    },
+    "cat_anchor": {
+      "x": 104,
+      "y": 420
+    },
+    "cat_scale": 0.45,
+    "book_centers_x": [
+      142,
+      166,
+      190,
+      214
+    ],
+    "book_size": {
+      "w": 34,
+      "h": 64
+    },
+    "box_centers_x": [
+      62,
+      180,
+      298
+    ],
+    "box_rect": {
+      "y": 455,
+      "w": 108,
+      "h": 66
+    },
+    "button_rect": {
+      "y": 546,
+      "w": 108,
+      "h": 58
+    },
+    "category_labels": [
+      "일반",
+      "어린이",
+      "유아"
+    ],
+    "categories": [
+      {
+        "id": "general",
+        "name": "일반",
+        "color": "blue",
+        "hex": "#4F9AFF"
+      },
+      {
+        "id": "children",
+        "name": "어린이",
+        "color": "yellow",
+        "hex": "#FFC743"
+      },
+      {
+        "id": "infants",
+        "name": "유아",
+        "color": "red",
+        "hex": "#F77768"
+      }
+    ]
+  },
+  "notes_ko": [
+    "label_rect는 PNG 픽셀 좌표입니다. 축소 비율을 적용해 HTML/Canvas로 한글을 표시하세요.",
+    "시안에 들어간 사이드뷰/탑뷰 펫말은 실제 게임에 넣지 않습니다.",
+    "하단 상자 내부 책은 같은 책 스프라이트를 작게 재사용하고 앞면은 clipPath로 가리세요.",
+    "background는 화면 전체에 맞추고 baseline_y는 필요하면 실제 플레이 검수 후 공통 CONFIG에서 조절하세요."
+  ]
+}

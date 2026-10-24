@@ -1,0 +1,64 @@
+{
+  "version": "book-sort-2.1.0",
+  "initialUncompressedBytes": 174821,
+  "pngFallbackUncompressedBytes": 1444483,
+  "files": [
+    {
+      "path": "index.html",
+      "bytes": 2398
+    },
+    {
+      "path": "style.css",
+      "bytes": 6432
+    },
+    {
+      "path": "game.js",
+      "bytes": 17704
+    },
+    {
+      "path": "shared/rules.js",
+      "bytes": 2162
+    },
+    {
+      "path": "assets/cat-supply.json",
+      "bytes": 3069
+    },
+    {
+      "path": "assets/library-background.webp",
+      "bytes": 12708
+    },
+    {
+      "path": "assets/return-cabinet.webp",
+      "bytes": 10222
+    },
+    {
+      "path": "assets/cat-supply-sheet.webp",
+      "bytes": 73968
+    },
+    {
+      "path": "assets/book-blue.webp",
+      "bytes": 6172
+    },
+    {
+      "path": "assets/book-yellow.webp",
+      "bytes": 6386
+    },
+    {
+      "path": "assets/book-red.webp",
+      "bytes": 6260
+    },
+    {
+      "path": "assets/box-blue.webp",
+      "bytes": 9180
+    },
+    {
+      "path": "assets/box-yellow.webp",
+      "bytes": 9120
+    },
+    {
+      "path": "assets/box-red.webp",
+      "bytes": 9040
+    }
+  ],
+  "network": "Excludes HTTP headers. WebP only, cold cache. Audio is synthesized."
+}
